@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        viewModel.loadDataFromNetwork()
         // Do any additional setup after loading the view.
     }
     
