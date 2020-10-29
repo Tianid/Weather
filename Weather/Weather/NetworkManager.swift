@@ -11,12 +11,12 @@ import Alamofire
 
 class NetworkManager {
     
-    static func makeRequest(cityName: String, method: HTTPMethod, complitionHandler: ((WeatherForecast) -> ())?) {
+    static func makeRequest(cityName: String, method: HTTPMethod, successor: ((WeatherForecast) -> ())?, failire: (() -> ())? ) {
         let parameters = ["q": cityName, "appid": APIKey, "units":"metric"]
-        makeRequest(method: method, parameters: parameters, complitionHandler: complitionHandler)
+        makeRequest(method: method, parameters: parameters, successor: successor, failire: failire)
     }
     
-    private static func makeRequest(method: HTTPMethod, parameters: [String: Any], complitionHandler: ((WeatherForecast) -> ())?) {
+    private static func makeRequest(method: HTTPMethod, parameters: [String: Any], successor: ((WeatherForecast) -> ())?, failire: (() -> ())? ) {
         AF.request(APIurl,
                    method: method,
                    parameters: parameters)
@@ -26,13 +26,14 @@ class NetworkManager {
                 case .success(let data):
                     do {
                         let model = try JSONDecoder().decode(WeatherForecast.self, from: data)
-                        complitionHandler?(model)
+                        successor?(model)
                     } catch {
                         print(error)
                     }
                 
                 case .failure(_):
 //                    print(error)
+                    failire?()
                     break
                 }
         }

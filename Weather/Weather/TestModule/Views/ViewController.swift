@@ -11,13 +11,10 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
-    
-    @IBOutlet weak var label: UILabel!
-    @IBAction func buttonAction(_ sender: UIButton) {
-        viewModel.testText.onNext("\(Int.random(in: 0...100))")
-    }
-    
-    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
+    private var refreshControll = UIRefreshControl()
     
     var viewModel: TestViewModel = TestViewModel()
     let disposeBag = DisposeBag()
@@ -26,17 +23,61 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setupBindings()
         viewModel.loadDataFromNetwork()
+        tableView.tableFooterView = UIView()
+        tableView.refreshControl = refreshControll
         // Do any additional setup after loading the view.
     }
     
     private func setupBindings() {
+        tableView.register(UINib(nibName: "\(WeatherTableViewCell.self)", bundle: nil), forCellReuseIdentifier: "Cell")
+        
         viewModel
-            .testText
+            .filteredModels
             .observe(on: MainScheduler.instance)
-            .bind(to: label.rx.text)
+            .bind(to: tableView.rx.items(cellIdentifier: "Cell", cellType: WeatherTableViewCell.self)) { row, element, cell in
+                let date = Date(timeIntervalSince1970: element.dt.timeIntervalSinceReferenceDate)
+                let value = CustomDateFormatter.makeFormattedDateString(date: date, type: .HoursMinutes)
+                cell.dayOfWeekLabel.text =  value
+                let count = element.weather.count - 1
+                cell.weatherImageView.image = UIImage(named: element.weather[count].getImageName())
+                cell.degreesLabel.text = "\(String(element.main.temp)) °C"
+        }
+        .disposed(by: disposeBag)
+        
+        segmentedControl.rx.value.asDriver().drive(onNext: { value in
+            self.dateLabel.text = String(value)
+            self.viewModel.parceModelByDays(numberOfDays: value)
+        }).disposed(by: disposeBag)
+        
+        viewModel
+            .dateLabelData
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.dateLabel.isHidden = false
+                self.dateLabel.text = $0
+            })
             .disposed(by: disposeBag)
+        
+        viewModel
+            .segments
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                for (key, name) in $0.enumerated() {
+                    self.segmentedControl.setTitle(name, forSegmentAt: key)
+                }
+                
+                self.segmentedControl.isHidden = false
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self.view.layoutIfNeeded()
+//                })
+            })
+            .disposed(by: disposeBag)
+        
+        refreshControll.rx.controlEvent(.valueChanged).bind(onNext: {
+            self.viewModel.loadDataFromNetwork()
+        }).disposed(by: disposeBag)
+        
+        viewModel.isPullRefreshing.observe(on: MainScheduler.instance).bind(to: refreshControll.rx.isRefreshing).disposed(by: disposeBag)
     }
-
-
 }
 
