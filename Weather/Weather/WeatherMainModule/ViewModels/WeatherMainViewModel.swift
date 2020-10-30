@@ -1,5 +1,5 @@
 //
-//  TestViewModel.swift
+//  WeatherMainViewModel.swift
 //  Weather
 //
 //  Created by Tianid on 27.10.2020.
@@ -11,7 +11,7 @@ import RxSwift
 import Alamofire
 
 
-class TestViewModel {
+class WeatherMainViewModel {
     private let disposeBag = DisposeBag()
     private var model: [WeatherBundle]?
     private var isNeedExtraNumber = false
@@ -26,11 +26,11 @@ class TestViewModel {
         dateLabelData = BehaviorSubject<String>(value: "")
     }
     
-    func loadDataFromNetwork() {
+    func loadDataFromNetwork(numberOfDays: Int) {
         NetworkManager.makeRequest(cityName: "Moscow", method: .get, successor: {
             guard !$0.list.isEmpty else { return }
             self.model = $0.list
-            self.parceModelByDays(numberOfDays: 0)
+            self.parceModelByDays(numberOfDays: numberOfDays)
             self.parceDaysOfWeek()
             self.isPullRefreshing.onNext(false)
         }, failire: {

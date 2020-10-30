@@ -16,13 +16,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private var refreshControll = UIRefreshControl()
     
-    var viewModel: TestViewModel = TestViewModel()
+    var viewModel: WeatherMainViewModel = WeatherMainViewModel()
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        viewModel.loadDataFromNetwork()
+        viewModel.loadDataFromNetwork(numberOfDays: 0)
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControll
         // Do any additional setup after loading the view.
@@ -62,6 +62,16 @@ class ViewController: UIViewController {
             .segments
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
+                
+                let numberOfPotentialSegments = $0.count
+                let currentNumberOfSegments = self.segmentedControl.numberOfSegments
+                
+                if numberOfPotentialSegments > currentNumberOfSegments {
+                    self.segmentedControl.insertSegment(withTitle: "", at: currentNumberOfSegments, animated: true)
+                } else if numberOfPotentialSegments < currentNumberOfSegments {
+                    self.segmentedControl.removeSegment(at: numberOfPotentialSegments, animated: true)
+                }
+                
                 for (key, name) in $0.enumerated() {
                     self.segmentedControl.setTitle(name, forSegmentAt: key)
                 }
@@ -74,7 +84,7 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         refreshControll.rx.controlEvent(.valueChanged).bind(onNext: {
-            self.viewModel.loadDataFromNetwork()
+            self.viewModel.loadDataFromNetwork(numberOfDays: self.segmentedControl.selectedSegmentIndex)
         }).disposed(by: disposeBag)
         
         viewModel.isPullRefreshing.observe(on: MainScheduler.instance).bind(to: refreshControll.rx.isRefreshing).disposed(by: disposeBag)
