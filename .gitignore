@@ -135,4 +135,4 @@ iOSInjectionProject/
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,macos
 
 /**/**/APIConst.swift
-/Weather/Weather/City list (WARNING BIG FILE)/
+**/City list (WARNING BIG FILE)/
