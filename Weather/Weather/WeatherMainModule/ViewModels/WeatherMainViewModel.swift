@@ -15,23 +15,27 @@ class WeatherMainViewModel {
     private let disposeBag = DisposeBag()
     private var model: [WeatherBundle]?
     private var isNeedExtraNumber = false
+    var curentCity: CityModel?
     
     var filteredModels = PublishSubject<[WeatherBundle]>()
+    var cityLabelData: BehaviorSubject<String>
     var dateLabelData: BehaviorSubject<String>
     var daysofWeekData = PublishSubject<[String]>()
     var segments = PublishSubject<[String]>()
     var isPullRefreshing = PublishSubject<Bool>()
     
     init() {
+        cityLabelData = BehaviorSubject<String>(value: "")
         dateLabelData = BehaviorSubject<String>(value: "")
     }
     
-    func loadDataFromNetwork(numberOfDays: Int) {
-        NetworkManager.makeRequest(cityName: "Moscow", method: .get, successor: {
+    func loadDataFromNetwork(cityName: String, numberOfDays: Int) {
+        NetworkManager.makeRequest(cityName: cityName, method: .get, successor: {
             guard !$0.list.isEmpty else { return }
             self.model = $0.list
             self.parceModelByDays(numberOfDays: numberOfDays)
             self.parceDaysOfWeek()
+            self.cityLabelData.onNext(cityName)
             self.isPullRefreshing.onNext(false)
         }, failire: {
             self.isPullRefreshing.onNext(false)

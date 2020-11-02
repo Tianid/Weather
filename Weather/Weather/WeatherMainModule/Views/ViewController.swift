@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
+    @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
@@ -22,7 +23,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        viewModel.loadDataFromNetwork(numberOfDays: 0)
+        let userDefaults = UserDefaults.standard
+        
+        if let value = userDefaults.string(forKey: "cityName") {
+            viewModel.loadDataFromNetwork(cityName: value, numberOfDays: 0)
+        }
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControll
         // Do any additional setup after loading the view.
@@ -59,6 +64,15 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel
+            .cityLabelData
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: {
+                self.cityNameLabel.isHidden = false
+                self.cityNameLabel.text = $0
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel
             .segments
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: {
@@ -84,10 +98,22 @@ class ViewController: UIViewController {
             .disposed(by: disposeBag)
         
         refreshControll.rx.controlEvent(.valueChanged).bind(onNext: {
-            self.viewModel.loadDataFromNetwork(numberOfDays: self.segmentedControl.selectedSegmentIndex)
+            self.viewModel.loadDataFromNetwork(cityName: self.viewModel.curentCity?.name ?? "", numberOfDays: self.segmentedControl.selectedSegmentIndex)
         }).disposed(by: disposeBag)
         
         viewModel.isPullRefreshing.observe(on: MainScheduler.instance).bind(to: refreshControll.rx.isRefreshing).disposed(by: disposeBag)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "citySelection" {
+            guard let citySelectionVC = segue.destination as? CitySelectionVC else { return }
+            citySelectionVC.backAction = {
+                self.viewModel.curentCity = $0
+                self.viewModel.cityLabelData.onNext($0.name)
+                let index = self.segmentedControl.selectedSegmentIndex
+                self.viewModel.loadDataFromNetwork(cityName: $0.name, numberOfDays: index)
+            }
+        }
     }
 }
 

@@ -19,6 +19,8 @@
 		1274C41E25499FC200FBC662 /* APIConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1274C41D25499FC200FBC662 /* APIConst.swift */; };
 		1274C4202549A18100FBC662 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1274C41F2549A18100FBC662 /* NetworkManager.swift */; };
 		1274C4222549A6D000FBC662 /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1274C4212549A6D000FBC662 /* WeatherForecast.swift */; };
+		1294766C255039C100025906 /* city.list.json in Resources */ = {isa = PBXBuildFile; fileRef = 1294766B255039C100025906 /* city.list.json */; };
+		1294766F2550698A00025906 /* ModelExtractro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1294766E2550698A00025906 /* ModelExtractro.swift */; };
 		129E0A75254B27A700FC3B63 /* CustomDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129E0A74254B27A700FC3B63 /* CustomDateFormatter.swift */; };
 		12BDE3CC254AF50200ED744A /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BDE3CA254AF50200ED744A /* WeatherTableViewCell.swift */; };
 		12BDE3CD254AF50200ED744A /* WeatherTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12BDE3CB254AF50200ED744A /* WeatherTableViewCell.xib */; };
@@ -55,6 +57,8 @@
 		1274C41D25499FC200FBC662 /* APIConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConst.swift; sourceTree = "<group>"; };
 		1274C41F2549A18100FBC662 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1274C4212549A6D000FBC662 /* WeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
+		1294766B255039C100025906 /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
+		1294766E2550698A00025906 /* ModelExtractro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelExtractro.swift; sourceTree = "<group>"; };
 		129E0A74254B27A700FC3B63 /* CustomDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDateFormatter.swift; sourceTree = "<group>"; };
 		12BDE3CA254AF50200ED744A /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
 		12BDE3CB254AF50200ED744A /* WeatherTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherTableViewCell.xib; sourceTree = "<group>"; };
@@ -113,7 +117,9 @@
 			children = (
 				120FE73E2548934900A037A4 /* AppDelegate.swift */,
 				12BDE3CE254AFE9E00ED744A /* Data+Extension.swift */,
+				1294766D25503AF400025906 /* City list (WARNING BIG FILE) */,
 				1274C41F2549A18100FBC662 /* NetworkManager.swift */,
+				1294766E2550698A00025906 /* ModelExtractro.swift */,
 				12CDD0CE254C41E400958855 /* CitySelectionModule */,
 				1212ED152548968800557E4C /* WeatherMainModule */,
 				120FE7472548934E00A037A4 /* Assets.xcassets */,
@@ -169,6 +175,14 @@
 				1274C4212549A6D000FBC662 /* WeatherForecast.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		1294766D25503AF400025906 /* City list (WARNING BIG FILE) */ = {
+			isa = PBXGroup;
+			children = (
+				1294766B255039C100025906 /* city.list.json */,
+			);
+			path = "City list (WARNING BIG FILE)";
 			sourceTree = "<group>";
 		};
 		12CDD0CE254C41E400958855 /* CitySelectionModule */ = {
@@ -311,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12BDE3CD254AF50200ED744A /* WeatherTableViewCell.xib in Resources */,
+				1294766C255039C100025906 /* city.list.json in Resources */,
 				120FE74B2548934E00A037A4 /* LaunchScreen.storyboard in Resources */,
 				120FE7482548934E00A037A4 /* Assets.xcassets in Resources */,
 				120FE7462548934900A037A4 /* Main.storyboard in Resources */,
@@ -423,6 +438,7 @@
 				12614FFE254C715500CEAA56 /* CityModel.swift in Sources */,
 				120FE7432548934900A037A4 /* ViewController.swift in Sources */,
 				120FE73F2548934900A037A4 /* AppDelegate.swift in Sources */,
+				1294766F2550698A00025906 /* ModelExtractro.swift in Sources */,
 				129E0A75254B27A700FC3B63 /* CustomDateFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

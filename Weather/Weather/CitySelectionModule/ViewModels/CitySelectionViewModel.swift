@@ -13,12 +13,7 @@ class CitySelectionViewModel {
     private let disposeBag = DisposeBag()
     private let cityItems = [CityModel]()
     
-    private let items: [CityModel] = [CityModel(id: 0, name: "1"),
-                                      CityModel(id: 1, name: "2"),
-                                      CityModel(id: 3, name: "3"),
-                                      CityModel(id: 4, name: "4"),
-                                      CityModel(id: 5, name: "5"),
-    ]
+    private let items: [CityModel] = ModelExtractor.shared.model
     
     var filteredCityItems = PublishSubject<[CityModel]>()
     var searchValue = PublishSubject<String>()
@@ -28,19 +23,20 @@ class CitySelectionViewModel {
     }
     
     private func configureRx() {
-         searchValue
-             .asObserver()
-             .subscribe { (value) in
-                 var filteredItems: [CityModel] = self.items
-                 if !value.element!.isEmpty {
-                     filteredItems = self.items.filter {
-                         $0.name.lowercased() == value.element?.lowercased()
-                     }
-                 }
-                 self.filteredCityItems.onNext(filteredItems)
-
-         }
-         .disposed(by: disposeBag)
+        searchValue
+            .asObserver()
+            .subscribe(onNext: { (value) in
+                var filteredItems: [CityModel] = self.items
+                if !value.isEmpty {
+                    filteredItems = self.items.filter {
+                        return $0.name.lowercased().contains(value.lowercased())
+                    }
+                }
+                self.filteredCityItems.onNext(filteredItems)
+            }, onError: { (error) in
+                print(error)
+            })
+        .disposed(by: disposeBag)
     }
     
     

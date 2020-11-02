@@ -10,6 +10,7 @@ import Foundation
 
 struct WeatherForecast: Codable {
     var list: [WeatherBundle]
+    let myCity: CityModel?
 }
 
 struct WeatherBundle: Codable {

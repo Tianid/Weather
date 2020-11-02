@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rl0-B6-fJ8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="O4F-0M-7K4">
-                                <rect key="frame" x="20" y="90" width="374" height="32"/>
+                                <rect key="frame" x="20" y="102" width="374" height="32"/>
                                 <segments>
                                     <segment title="30.30"/>
                                     <segment title="30.30"/>
@@ -26,14 +26,21 @@
                                     <segment title="30.30"/>
                                 </segments>
                             </segmentedControl>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNb-dM-ZnY">
-                                <rect key="frame" x="20" y="61" width="374" height="21"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNb-dM-ZnY">
+                                <rect key="frame" x="20" y="73" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGF-Jk-oHO">
+                                <rect key="frame" x="20" y="44" width="374" height="21"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9zf-XO-HkW">
-                                <rect key="frame" x="0.0" y="129" width="414" height="733"/>
+                                <rect key="frame" x="0.0" y="141" width="414" height="721"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="feg-DZ-czb" customClass="WeatherTableViewCell" customModule="Weather" customModuleProvider="target">
@@ -46,6 +53,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPV-eE-z7V">
+                                <rect key="frame" x="370" y="45" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Usw-R7-nyv"/>
+                                    <constraint firstAttribute="width" constant="20" id="mg3-c7-AQg"/>
+                                </constraints>
+                                <state key="normal" image="list.dash" catalog="system"/>
+                                <connections>
+                                    <segue destination="Rl0-B6-fJ8" kind="show" identifier="citySelection" id="nQT-nR-xX3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -53,16 +71,22 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mNb-dM-ZnY" secondAttribute="trailing" constant="20" id="87C-p5-rTx"/>
                             <constraint firstItem="mNb-dM-ZnY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="9jY-OH-PfF"/>
                             <constraint firstItem="9zf-XO-HkW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DAw-EF-CrV"/>
-                            <constraint firstItem="mNb-dM-ZnY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="17" id="bsM-gj-rOX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fGF-Jk-oHO" secondAttribute="trailing" constant="20" id="Nrs-EE-X1t"/>
+                            <constraint firstItem="fGF-Jk-oHO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PAV-Lk-bmp"/>
                             <constraint firstItem="O4F-0M-7K4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dFG-gk-ncW"/>
+                            <constraint firstItem="fGF-Jk-oHO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hLc-WS-hms"/>
                             <constraint firstItem="O4F-0M-7K4" firstAttribute="top" secondItem="mNb-dM-ZnY" secondAttribute="bottom" constant="8" id="jHt-zd-0rn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pPV-eE-z7V" secondAttribute="trailing" constant="24" id="nUI-PP-j8M"/>
+                            <constraint firstItem="pPV-eE-z7V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="1" id="rhQ-2J-4RV"/>
                             <constraint firstItem="9zf-XO-HkW" firstAttribute="top" secondItem="O4F-0M-7K4" secondAttribute="bottom" constant="8" id="uQE-ef-6HZ"/>
                             <constraint firstItem="9zf-XO-HkW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="uj2-fH-aSN"/>
+                            <constraint firstItem="mNb-dM-ZnY" firstAttribute="top" secondItem="fGF-Jk-oHO" secondAttribute="bottom" constant="8" id="vzr-9q-lov"/>
                             <constraint firstItem="9zf-XO-HkW" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="w2K-Sh-zwF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cityNameLabel" destination="fGF-Jk-oHO" id="pwG-DQ-WTc"/>
                         <outlet property="dateLabel" destination="mNb-dM-ZnY" id="gxx-Yq-xMJ"/>
                         <outlet property="segmentedControl" destination="O4F-0M-7K4" id="eR6-Aj-i6D"/>
                         <outlet property="tableView" destination="9zf-XO-HkW" id="QFK-je-gNd"/>
@@ -77,11 +101,11 @@
             <objects>
                 <viewController id="Rl0-B6-fJ8" customClass="CitySelectionVC" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ljE-ZY-klh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b7R-tu-N5A">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="hRO-C3-kYa" style="IBUITableViewCellStyleDefault" id="Imo-A5-WvE">
@@ -113,6 +137,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Hru-dU-j2G"/>
                     </view>
+                    <navigationItem key="navigationItem" id="uSp-fE-bf7"/>
                     <connections>
                         <outlet property="tableView" destination="b7R-tu-N5A" id="sTm-L4-5sC"/>
                     </connections>
@@ -122,4 +147,7 @@
             <point key="canvasLocation" x="968.11594202898561" y="80.357142857142847"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+    </resources>
 </document>
