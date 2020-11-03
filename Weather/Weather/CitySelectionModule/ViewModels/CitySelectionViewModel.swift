@@ -14,6 +14,7 @@ class CitySelectionViewModel {
     private let cityItems = [CityModel]()
     
     private let items: [CityModel] = ModelExtractor.shared.model
+    private var filteredItems = [CityModel]()
     
     var filteredCityItems = PublishSubject<[CityModel]>()
     var searchValue = PublishSubject<String>()
@@ -25,20 +26,36 @@ class CitySelectionViewModel {
     private func configureRx() {
         searchValue
             .asObserver()
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
+            .observe(on: SerialDispatchQueueScheduler(qos: .userInteractive))
             .subscribe(onNext: { (value) in
-                var filteredItems: [CityModel] = self.items
                 if !value.isEmpty {
-                    filteredItems = self.items.filter {
-                        return $0.name.lowercased().contains(value.lowercased())
+                    
+                    if self.filteredItems.isEmpty {
+                        self.filteredItems = self.items.filter {
+                            return $0.name.lowercased().contains(value.lowercased())
+                        }
+                    } else {
+                        self.filteredItems = self.filteredItems.filter {
+                            return $0.name.lowercased().contains(value.lowercased())
+                        }
                     }
+                    
+                    self.filteredCityItems.onNext(self.filteredItems)
+                } else {
+                    self.filteredCityItems.onNext(self.items)
+                    self.filteredItems = []
                 }
-                self.filteredCityItems.onNext(filteredItems)
             }, onError: { (error) in
                 print(error)
+            }, onCompleted: {
+                print("onCompleted")
+            }, onDisposed: {
+                print("onDisposed")
             })
+
         .disposed(by: disposeBag)
     }
-    
     
     func refreshDataToDefault() {
         filteredCityItems.onNext(items)

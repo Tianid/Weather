@@ -34,7 +34,6 @@
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGF-Jk-oHO">
                                 <rect key="frame" x="20" y="44" width="374" height="21"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -54,10 +53,11 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pPV-eE-z7V">
-                                <rect key="frame" x="370" y="45" width="20" height="20"/>
+                                <rect key="frame" x="364" y="52" width="30" height="30"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Usw-R7-nyv"/>
-                                    <constraint firstAttribute="width" constant="20" id="mg3-c7-AQg"/>
+                                    <constraint firstAttribute="height" constant="30" id="Usw-R7-nyv"/>
+                                    <constraint firstAttribute="width" constant="30" id="mg3-c7-AQg"/>
                                 </constraints>
                                 <state key="normal" image="list.dash" catalog="system"/>
                                 <connections>
@@ -76,8 +76,8 @@
                             <constraint firstItem="O4F-0M-7K4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dFG-gk-ncW"/>
                             <constraint firstItem="fGF-Jk-oHO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hLc-WS-hms"/>
                             <constraint firstItem="O4F-0M-7K4" firstAttribute="top" secondItem="mNb-dM-ZnY" secondAttribute="bottom" constant="8" id="jHt-zd-0rn"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pPV-eE-z7V" secondAttribute="trailing" constant="24" id="nUI-PP-j8M"/>
-                            <constraint firstItem="pPV-eE-z7V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="1" id="rhQ-2J-4RV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pPV-eE-z7V" secondAttribute="trailing" constant="20" id="nUI-PP-j8M"/>
+                            <constraint firstItem="pPV-eE-z7V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="rhQ-2J-4RV"/>
                             <constraint firstItem="9zf-XO-HkW" firstAttribute="top" secondItem="O4F-0M-7K4" secondAttribute="bottom" constant="8" id="uQE-ef-6HZ"/>
                             <constraint firstItem="9zf-XO-HkW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="uj2-fH-aSN"/>
                             <constraint firstItem="mNb-dM-ZnY" firstAttribute="top" secondItem="fGF-Jk-oHO" secondAttribute="bottom" constant="8" id="vzr-9q-lov"/>

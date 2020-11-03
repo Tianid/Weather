@@ -13,6 +13,7 @@ struct CityModel: Codable {
     let name: String
     let state: String
     let country: String
+    let coord: Coord
     var presentName: String {
         if state.isEmpty && country.isEmpty {
             return "\(name)"
@@ -22,4 +23,9 @@ struct CityModel: Codable {
         let _state = state.isEmpty ? state : "state: \(state)"
         return "\(name) ( \(_country) \(_state) )"
     }
+}
+
+struct Coord: Codable {
+    let lon: Double
+    let lat: Double
 }

@@ -18,9 +18,17 @@ class ModelExtractor {
     func makeCityList() {
         guard let urlPath = Bundle.main.url(forResource: "city.list", withExtension: "json") else { return }
         do {
+            let dateForm = DateFormatter()
+            dateForm.dateFormat = "HH:mm:ss"
+            dateForm.string(from: Date())
+            
+            print("start reading \(dateForm.string(from: Date()))")
+
             let data = try Data(contentsOf: urlPath)
             let model = transformDataToJSON(data: data)
-            sortModel(model: model)
+            self.model = model
+            
+            print("end reading \(dateForm.string(from: Date()))")
         } catch {
             print(error)
         }
