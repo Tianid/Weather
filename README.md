@@ -2,7 +2,7 @@
 
 Weather app. Shows the weather for the selected city.
 Weather data is taken from the openweathermap.org API
-[openweathermap.org] (https://openweathermap.org) .
+https://openweathermap.org.
 
 Also used MVVP.
 
