@@ -25,8 +25,7 @@ class ModelExtractor {
             print("start reading \(dateForm.string(from: Date()))")
 
             let data = try Data(contentsOf: urlPath)
-            let model = transformDataToJSON(data: data)
-            self.model = model
+            self.model = transformDataToJSON(data: data)
             
             print("end reading \(dateForm.string(from: Date()))")
         } catch {

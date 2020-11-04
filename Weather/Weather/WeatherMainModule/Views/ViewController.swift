@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var listButton: UIButton!
     private var refreshControll = UIRefreshControl()
     
     var viewModel: WeatherMainViewModel = WeatherMainViewModel()
@@ -30,6 +31,13 @@ class ViewController: UIViewController {
         }
         tableView.tableFooterView = UIView()
         tableView.refreshControl = refreshControll
+        
+        if #available(iOS 13, *) {
+            
+        } else {
+            listButton.backgroundColor = .red
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -106,7 +114,8 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "citySelection" {
-            guard let citySelectionVC = segue.destination as? CitySelectionVC else { return }
+            guard let nav = segue.destination as? UINavigationController else { return }
+            guard let citySelectionVC = nav.viewControllers.first as? CitySelectionVC else { return }
             citySelectionVC.backAction = {
                 self.viewModel.curentCity = $0
                 self.viewModel.cityLabelData.onNext($0.name)

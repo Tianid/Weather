@@ -14,7 +14,6 @@ class CitySelectionVC: UIViewController {
     var backAction: ((CityModel) -> ())?
     
     @IBOutlet weak var tableView: UITableView!
-    //    @IBOutlet weak var searchBarController: UISearchController!
     
     private let viewModel = CitySelectionViewModel()
     private let disposeBag = DisposeBag()
@@ -37,6 +36,13 @@ class CitySelectionVC: UIViewController {
         
         configureBindings()
         viewModel.refreshDataToDefault()
+        
+        
+        if #available(iOS 13, *) {
+            self.navigationController?.navigationBar.isHidden = true
+        } else {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(cancelAction))
+        }
     }
     
     private func configureBindings() {
@@ -62,7 +68,7 @@ class CitySelectionVC: UIViewController {
             self.searchController.isActive = false
             self.saveToUD(model: $0)
             self.dismiss(animated: true)
-            self.backAction!($0)
+            self.backAction?($0)
         }).disposed(by: disposeBag)
         
         tableView.rx.itemSelected.bind(onNext: {
@@ -75,5 +81,9 @@ class CitySelectionVC: UIViewController {
         let userDefaults = UserDefaults.standard
         userDefaults.set(model.name, forKey: "cityName")
         userDefaults.set(model.id, forKey: "cityKey")
+    }
+    
+    @objc private func cancelAction() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
