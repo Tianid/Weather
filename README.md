@@ -4,7 +4,7 @@ Weather app. Shows the weather for the selected city.
 Weather data is taken from the openweathermap.org API
 https://openweathermap.org.
 
-Also used MVVP.
+Also used MVVM.
 
 # Used frameforks/librarys 
 1. RxSwift
