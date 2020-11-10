@@ -6,7 +6,7 @@ https://openweathermap.org.
 
 Also used MVVM.
 
-# Used frameforks/librarys 
+# Used frameworks/librarys 
 1. RxSwift
 2. RxCocoa
 3. Alamofire
